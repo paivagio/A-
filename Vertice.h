@@ -6,6 +6,7 @@
 #define ESTRELA_VERTICE_H
 
 #include <map>
+#include "Aresta.h"
 #include <vector>
 
 

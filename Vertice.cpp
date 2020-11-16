@@ -2,8 +2,10 @@
 // Created by paiva on 13/11/2020.
 //
 
+#include <algorithm>
 #include "Vertice.h"
 #include "map"
+#include "Aresta.h"
 #include "Grafo.h"
 
 
@@ -12,30 +14,48 @@ Vertice::Vertice(int num) {
 }
 
 void Vertice::ligar(Vertice vizinho, int custo) {
-    arestas.adicionar(vizinho.getNum(), new Aresta(vizinho, custo));
+    //arestas.insert(vizinho.getNum(), new Aresta(vizinho, custo));
 }
 
 void Vertice::desligar(Vertice vertice) {
-    arestas.remover(vertice.getNum());
+    arestas.erase(vertice.getNum());
 }
 
 std::vector<int> Vertice::getVizinhos() const {
-    //std::vector<int> vizinhos = new std::vector<int>(arestas.getTamanho());
-    //arestas.chaves().forEach(vizinhos::adicionar);
+    std::vector<int> vizinhos (arestas.size());
+    auto it = arestas.begin();
+
+    std::for_each(arestas.begin(), arestas.end(),[&vizinhos](std::pair<int, Aresta> element){
+          // Accessing KEY from element
+          int n = element.first;
+
+          vizinhos.insert(vizinhos.begin(), n);
+      });
+
     return vizinhos;
 }
 
 std::vector<Aresta> Vertice::getArestas() const {
-    //std::vector<Aresta> vizinhos = new std::vector<Aresta>(arestas.getTamanho());
-    //arestas.valores().forEach(vizinhos::adicionar);
+    std::vector<Aresta> vizinhos (arestas.size());
+    auto it = arestas.begin();
+
+    std::for_each(arestas.begin(), arestas.end(),[&vizinhos](std::pair<int, Aresta> element){
+        // Accessing VALUE from element
+        Aresta ar = element.second;
+
+        vizinhos.insert(vizinhos.begin(), ar);
+    });
+
     return vizinhos;
 }
 
+/*
 int Vertice::getCusto(int vizinho) const {
-    Aresta aresta = arestas.get(vizinho);
+    Aresta aresta = arestas.get(vizinho); //usar at(index)
     if (aresta == nullptr) return Grafo.SEM_ARESTA;
-    return aresta.getCusto();
+    return aresta.getCusto(); //aresta.first
 }
+*/
 
 int Vertice::getCusto(Vertice vizinho) const {
     return getCusto(vizinho.getNum());
