@@ -28,6 +28,8 @@ public:
     virtual void removerAresta(int v1, int v2) override;
     virtual int getCusto(int v1, int v2) override;
     virtual vector<int> getVizinhos(int vertice) override;
+    virtual int maisPerto(int custo, vector<Aresta> naoVisitados);
+    virtual vector<int> listarCaminho(int antecessor, int para);
 
     virtual ~GrafoArray();
 };
