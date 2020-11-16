@@ -2,8 +2,8 @@
 // Created by lucas on 13/11/2020.
 //
 
-#ifndef GRAFOS_GRAFO_H
-#define GRAFOS_GRAFO_H
+#ifndef ESTRELA_GRAFO_H
+#define ESTRELA_GRAFO_H
 
 #include <vector>
 
@@ -22,4 +22,4 @@ public:
     virtual ~Grafo() {}
 };
 
-#endif //GRAFOS_GRAFO_H
+#endif //ESTRELA_GRAFO_H
