@@ -2,8 +2,8 @@
 // Created by lucas on 13/11/2020.
 //
 
-#ifndef GRAFOS_ARESTA_H
-#define GRAFOS_ARESTA_H
+#ifndef ESTRELA_ARESTA_H
+#define ESTRELA_ARESTA_H
 
 
 #include "Vertice.h"
@@ -19,4 +19,4 @@ public:
 };
 
 
-#endif //GRAFOS_ARESTA_H
+#endif //ESTRELA_ARESTA_H
