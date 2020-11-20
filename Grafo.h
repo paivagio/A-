@@ -19,7 +19,7 @@ public:
     virtual void removerAresta(int v1, int v2) = 0;
     virtual int getCusto(int v1, int v2) = 0;
     virtual std::vector<int> getVizinhos(int vertice) = 0;
-    virtual ~Grafo() {}
+    virtual ~Grafo() = default;
 };
 
 #endif //ESTRELA_GRAFO_H

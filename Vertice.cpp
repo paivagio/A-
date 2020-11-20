@@ -4,7 +4,6 @@
 
 #include <algorithm>
 #include "Vertice.h"
-#include "map"
 #include "Aresta.h"
 #include "Grafo.h"
 
@@ -64,3 +63,5 @@ int Vertice::getCusto(Vertice vizinho) const {
 int Vertice::getNum() const {
     return num;
 }
+
+

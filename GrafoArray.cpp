@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <array>
+#include "Aresta.h"
 
 using namespace std;
 
@@ -14,7 +15,7 @@ GrafoArray::GrafoArray(int vertices,bool direcionado) {
     }
 
     for(int i = 0; i < vertices; i++) {
-      for(int j = 0; j < vertices; i++) {
+      for(int j = 0; j < vertices; j++) {
         arestas[i][j] = this->indefinido;
       }
     }
@@ -57,7 +58,7 @@ vector<int> GrafoArray::getVizinhos(int vertice) {
 }
 
 int GrafoArray::maisPerto(int custo, vector<Aresta> naoVisitados) {
-    int menorCusto = this->INFINITO;
+    int menorCusto = this->infinito;
     int minIndice = 0;
     for (int v = 0; v < length; v++){
         if (custo < menorCusto) {
@@ -69,17 +70,57 @@ int GrafoArray::maisPerto(int custo, vector<Aresta> naoVisitados) {
 }
 
 vector<int> GrafoArray::listarCaminho(int antecessor, int para) {
-    stack<int> *caminho = new stack<int>();
+    auto *caminho = new stack<int>();
     caminho->push(para);
-    while (antecessor != this->INDEFINIDO) {
+    while (antecessor != this->indefinido) {
         caminho->push(antecessor);
         para = antecessor;
     }
 
-    vector<int> *lista = new vector<int>();
+    auto *lista = new vector<int>();
     //lista->adicionarTodos(caminho);
     return *lista;
 }
+
+/*
+ public Lista<Integer> buscaRadial(int de, int para) {
+        //Inicialização
+        //-------------
+        var custo = new int[getTamanho()];
+        var antecessor = new int[getTamanho()];
+        var naoVisitados = new ListaArray(getTamanho());
+
+        Arrays.fill(custo, INFINITO);
+        custo[de] = 0;
+        Arrays.fill(antecessor, INDEFINIDO);
+        for (var v = 0; v < getTamanho(); v++) {
+            naoVisitados.adicionar(v);
+        }
+
+        //Algoritmo
+        //---------
+        while (!naoVisitados.isVazia()) {
+            int perto = maisPerto(custo, naoVisitados);
+            var indicePerto = naoVisitados.indice(perto);
+            if (indicePerto == -1) break;
+            naoVisitados.remover(indicePerto);
+
+            for (var vizinho : getVizinhos(perto)) {
+                var custoTotal = custo[perto] + getCusto(perto, vizinho);
+                if (custoTotal < custo[vizinho]) {
+                    custo[vizinho] = custoTotal;
+                    antecessor[vizinho] = perto;
+                }
+            }
+
+            //Achou?
+            if (perto == para) {
+                return listarCaminho(antecessor, perto);
+            }
+        }
+        return new ListaArray<>();
+    }
+ */
 
 //um delete por linha e um geral
 

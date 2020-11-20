@@ -1,9 +1,6 @@
 #include "Aresta.h"
-#include "Vertice.h"
 #include <iostream>
 
-Vertice vizinho;
-int custo;
 
 Aresta::Aresta(Vertice vizinho, int custo) {
     if (custo < 0) {
@@ -15,16 +12,13 @@ Aresta::Aresta(Vertice vizinho, int custo) {
     this->custo = custo;
 }
 
-Aresta::~Aresta() {
-
-}
-
-Vertice getVizinho() {
+Vertice Aresta::getVizinho() {
     return vizinho;
 }
 
-int getCusto() {
+int Aresta::getCusto() {
     return custo;
 }
 
+Aresta::~Aresta() = default;
 
