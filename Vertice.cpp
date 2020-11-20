@@ -4,7 +4,6 @@
 
 #include <algorithm>
 #include "Vertice.h"
-#include "Aresta.h"
 #include "Grafo.h"
 
 
@@ -13,7 +12,7 @@ Vertice::Vertice(int num) {
 }
 
 void Vertice::ligar(Vertice* vizinho, int custo) {
-    arestas.insert(vizinho->getNum(), new Aresta(vizinho, custo));
+    arestas.insert(std::pair<int,Aresta*>(vizinho->getNum(),new Aresta(vizinho, custo)));
 }
 
 void Vertice::desligar(Vertice* vertice) {
