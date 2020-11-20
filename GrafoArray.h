@@ -33,7 +33,7 @@ public:
     virtual int maisPerto(int custo, vector<Aresta> naoVisitados);
     virtual vector<int> listarCaminho(int antecessor, int para);
 
-    virtual ~GrafoArray();
+    ~GrafoArray() override;
 };
 
 #endif //ED05_GRAFOARRAY_H

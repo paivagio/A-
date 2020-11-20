@@ -13,18 +13,17 @@
 class Vertice {
 private:
     int num;
-    std::map<int, Aresta> arestas;
+    std::map<int, Aresta*> arestas;
 
 public:
     Vertice(int num);
-    void ligar(Vertice vizinho, int custo);
-    void desligar(Vertice vertice);
+    void ligar(Vertice* vizinho, int custo);
+    void desligar(Vertice* vertice);
     std::vector<int> getVizinhos() const;
     std::vector<Aresta> getArestas() const;
     int getCusto(int vizinho) const;
-    int getCusto(Vertice vizinho) const;
+    int getCusto(Vertice* vizinho) const;
     int getNum() const;
-
 };
 
 

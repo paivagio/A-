@@ -5,15 +5,15 @@
 #ifndef ESTRELA_ARESTA_H
 #define ESTRELA_ARESTA_H
 
-#include "Vertice.h"
+class Vertice;
 
 class Aresta {
 private:
-    Vertice vizinho;
+    Vertice* vizinho;
     int custo;
 
 public:
-    Aresta(Vertice vizinho, int custo);
+    Aresta(Vertice* vizinho, int custo);
     virtual ~Aresta();
     Vertice getVizinho();
     int getCusto();

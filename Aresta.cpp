@@ -1,8 +1,8 @@
 #include "Aresta.h"
 #include <iostream>
+#include "Vertice.h"
 
-
-Aresta::Aresta(Vertice vizinho, int custo) {
+Aresta::Aresta(Vertice* vizinho, int custo) {
     if (custo < 0) {
         std::cout <<("Custo inválido!") << std::endl;
         return;
@@ -13,7 +13,7 @@ Aresta::Aresta(Vertice vizinho, int custo) {
 }
 
 Vertice Aresta::getVizinho() {
-    return vizinho;
+    return *vizinho;
 }
 
 int Aresta::getCusto() {

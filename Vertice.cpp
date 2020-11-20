@@ -12,12 +12,12 @@ Vertice::Vertice(int num) {
     this->num = num;
 }
 
-void Vertice::ligar(Vertice vizinho, int custo) {
-    //arestas.insert(vizinho.getNum(), new Aresta(vizinho, custo));
+void Vertice::ligar(Vertice* vizinho, int custo) {
+    arestas.insert(vizinho->getNum(), new Aresta(vizinho, custo));
 }
 
-void Vertice::desligar(Vertice vertice) {
-    arestas.erase(vertice.getNum());
+void Vertice::desligar(Vertice* vertice) {
+    arestas.erase(vertice->getNum());
 }
 
 std::vector<int> Vertice::getVizinhos() const {
@@ -48,16 +48,17 @@ std::vector<Aresta> Vertice::getArestas() const {
     return vizinhos;
 }
 
-/*
-int Vertice::getCusto(int vizinho) const {
-    Aresta aresta = arestas.get(vizinho); //usar at(index)
-    if (aresta == nullptr) return Grafo.SEM_ARESTA;
-    return aresta.getCusto(); //aresta.first
-}
-*/
 
-int Vertice::getCusto(Vertice vizinho) const {
-    return getCusto(vizinho.getNum());
+int Vertice::getCusto(int vizinho) const {
+    auto aresta = arestas.at(vizinho); //usar at(index)
+    if (aresta == nullptr)
+        return -1;
+    return aresta->getCusto(); //aresta.first
+}
+
+
+int Vertice::getCusto(Vertice* vizinho) const {
+    return getCusto(vizinho->getNum());
 }
 
 int Vertice::getNum() const {
