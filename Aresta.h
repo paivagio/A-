@@ -16,7 +16,7 @@ public:
     Aresta(Vertice* vizinho, int custo);
     virtual ~Aresta();
     Vertice getVizinho();
-    int getCusto() const;
+    int getCusto();
 };
 
 #endif //ESTRELA_ARESTA_H

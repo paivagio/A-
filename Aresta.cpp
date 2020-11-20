@@ -16,7 +16,7 @@ Vertice Aresta::getVizinho() {
     return *vizinho;
 }
 
-int Aresta::getCusto() const{
+int Aresta::getCusto() {
     return custo;
 }
 
