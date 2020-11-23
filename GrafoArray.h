@@ -30,8 +30,9 @@ public:
     void removerAresta(int v1, int v2) override;
     int getCusto(int v1, int v2) override;
     vector<int> getVizinhos(int vertice) override;
-    int maisPerto(int* custo, vector<int> naoVisitados) override;
-    vector<int> listarCaminho(int* antecessor, int para) override;
+    int maisPerto(int* custo, vector<int> naoVisitados) const;
+    vector<int>* listarCaminho(int* antecessor, int para) const;
+    vector<int>* buscaRadial(int de, int para);
 
     ~GrafoArray() override;
 };

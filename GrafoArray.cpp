@@ -57,7 +57,7 @@ vector<int> GrafoArray::getVizinhos(int vertice) {
     return vizinhos;
 }
 
-int GrafoArray::maisPerto(int* custo, vector<int> naoVisitados) {
+int GrafoArray::maisPerto(int* custo, vector<int> naoVisitados) const {
     int menorCusto = this->infinito;
     int minIndice = 0;
     for (int v = 0; v < length; v++){
@@ -69,44 +69,50 @@ int GrafoArray::maisPerto(int* custo, vector<int> naoVisitados) {
     return minIndice;
 }
 
-vector<int> GrafoArray::listarCaminho(int* antecessor, int para) {
-    auto *caminho = new stack<int>();
-    caminho->push(para);
+vector<int>* GrafoArray::listarCaminho(int* antecessor, int para) const {
+    stack<int> caminho;
+    caminho.push(para);
     while (antecessor[para] != this->indefinido) {
-        caminho->push(antecessor[para]);
+        caminho.push(antecessor[para]);
         para = antecessor[para];
     }
 
-    auto *lista = new vector<int>();
-    //lista->adicionarTodos(caminho);
-    return *lista;
+    vector<int> lista;
+    for (int v = 0; v < length; v++) {
+        lista.push_back(caminho.top());
+        caminho.pop();
+    }
+    return &lista;
 }
 
-/*
- public Lista<Integer> buscaRadial(int de, int para) {
+
+vector<int>* GrafoArray::buscaRadial(int de, int para){
         //Inicialização
         //-------------
-        var custo = new int[getTamanho()];
-        var antecessor = new int[getTamanho()];
-        var naoVisitados = new ListaArray(getTamanho());
+        auto custo = new int[getTamanho()];
+        auto antecessor = new int[getTamanho()];
+        auto naoVisitados = vector<int>(getTamanho());
 
-        Arrays.fill(custo, INFINITO);
-        custo[de] = 0;
-        Arrays.fill(antecessor, INDEFINIDO);
-        for (var v = 0; v < getTamanho(); v++) {
-            naoVisitados.adicionar(v);
+        for (auto v = 0; v < getTamanho(); v++) {
+            custo[v] = infinito;
+            antecessor[v] = indefinido;
+            naoVisitados.insert(naoVisitados.begin()+v, v);
         }
+        custo[de] = 0;
 
         //Algoritmo
         //---------
-        while (!naoVisitados.isVazia()) {
+        while (!naoVisitados.empty()) {
             int perto = maisPerto(custo, naoVisitados);
-            var indicePerto = naoVisitados.indice(perto);
+            auto indicePerto = 0;
+            for (auto v = 0; v < getTamanho(); v++) {
+                if(naoVisitados.at(v) == perto)
+                    indicePerto = v;
+            }
             if (indicePerto == -1) break;
-            naoVisitados.remover(indicePerto);
-
-            for (var vizinho : getVizinhos(perto)) {
-                var custoTotal = custo[perto] + getCusto(perto, vizinho);
+            naoVisitados.erase(naoVisitados.begin()+indicePerto);
+            for (auto vizinho : getVizinhos(perto)) {
+                auto custoTotal = custo[perto] + getCusto(perto, vizinho);
                 if (custoTotal < custo[vizinho]) {
                     custo[vizinho] = custoTotal;
                     antecessor[vizinho] = perto;
@@ -118,9 +124,9 @@ vector<int> GrafoArray::listarCaminho(int* antecessor, int para) {
                 return listarCaminho(antecessor, perto);
             }
         }
-        return new ListaArray<>();
+        return new vector<int>();
     }
- */
+
 
 //um delete por linha e um geral
 
