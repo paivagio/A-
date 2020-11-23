@@ -57,24 +57,24 @@ vector<int> GrafoArray::getVizinhos(int vertice) {
     return vizinhos;
 }
 
-int GrafoArray::maisPerto(int custo, vector<Aresta> naoVisitados) {
+int GrafoArray::maisPerto(int* custo, vector<int> naoVisitados) {
     int menorCusto = this->infinito;
     int minIndice = 0;
     for (int v = 0; v < length; v++){
-        if (custo < menorCusto) {
-            menorCusto = custo;
+        if (custo[v] < menorCusto) {
+            menorCusto = custo[v];
             minIndice = v;
         }
     }
     return minIndice;
 }
 
-vector<int> GrafoArray::listarCaminho(int antecessor, int para) {
+vector<int> GrafoArray::listarCaminho(int* antecessor, int para) {
     auto *caminho = new stack<int>();
     caminho->push(para);
-    while (antecessor != this->indefinido) {
-        caminho->push(antecessor);
-        para = antecessor;
+    while (antecessor[para] != this->indefinido) {
+        caminho->push(antecessor[para]);
+        para = antecessor[para];
     }
 
     auto *lista = new vector<int>();
