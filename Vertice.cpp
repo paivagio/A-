@@ -19,11 +19,12 @@ void Vertice::desligar(Vertice* vertice) {
     arestas.erase(vertice->getNum());
 }
 
+/*
 std::vector<int> Vertice::getVizinhos() const {
     std::vector<int> vizinhos (arestas.size());
     auto it = arestas.begin();
 
-    std::for_each(arestas.begin(), arestas.end(),[&vizinhos](std::pair<int, Aresta> element){
+    std::for_each(arestas.begin(), arestas.end(),[&vizinhos](const std::pair<int, Aresta>& element){
           // Accessing KEY from element
           int n = element.first;
 
@@ -37,7 +38,7 @@ std::vector<Aresta> Vertice::getArestas() const {
     std::vector<Aresta> vizinhos (arestas.size());
     auto it = arestas.begin();
 
-    std::for_each(arestas.begin(), arestas.end(),[&vizinhos](std::pair<int, Aresta> element){
+    std::for_each(arestas.begin(), arestas.end(),[&vizinhos](const std::pair<int, Aresta>& element){
         // Accessing VALUE from element
         Aresta ar = element.second;
 
@@ -46,7 +47,7 @@ std::vector<Aresta> Vertice::getArestas() const {
 
     return vizinhos;
 }
-
+*/
 
 int Vertice::getCusto(int vizinho) const {
     auto aresta = arestas.at(vizinho); //usar at(index)

@@ -19,8 +19,8 @@ public:
     Vertice(int num);
     void ligar(Vertice* vizinho, int custo);
     void desligar(Vertice* vertice);
-    std::vector<int> getVizinhos() const;
-    std::vector<Aresta> getArestas() const;
+    //std::vector<int> getVizinhos() const;
+    //std::vector<Aresta> getArestas() const;
     int getCusto(int vizinho) const;
     int getCusto(Vertice* vizinho) const;
     int getNum() const;

@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <array>
-#include "Aresta.h"
+
 
 using namespace std;
 
@@ -20,7 +20,7 @@ GrafoArray::GrafoArray(int vertices,bool direcionado) {
       }
     }
 
-    this->length = vertices * vertices;
+    this->length = vertices;
 }
 
 int GrafoArray::getTamanho(){
@@ -57,10 +57,11 @@ vector<int> GrafoArray::getVizinhos(int vertice) {
     return vizinhos;
 }
 
-int GrafoArray::maisPerto(int* custo, vector<int> naoVisitados) const {
+int GrafoArray::maisPerto(const int* custo, const vector<int>& naoVisitados) const {
     int menorCusto = this->infinito;
     int minIndice = 0;
-    for (int v = 0; v < length; v++){
+
+    for (auto v : naoVisitados) {
         if (custo[v] < menorCusto) {
             menorCusto = custo[v];
             minIndice = v;
@@ -76,13 +77,19 @@ vector<int>* GrafoArray::listarCaminho(int* antecessor, int para) const {
         caminho.push(antecessor[para]);
         para = antecessor[para];
     }
-
-    vector<int> lista;
-    for (int v = 0; v < length; v++) {
-        lista.push_back(caminho.top());
+    vector<int>* lista;
+    int size = caminho.size();
+    int arr[size];
+    for (int v = 0; v < size; v++) {
+        arr[v] = caminho.top();
         caminho.pop();
     }
-    return &lista;
+
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    lista = new vector<int>(arr, arr + n);
+
+    return lista;
 }
 
 
@@ -93,10 +100,17 @@ vector<int>* GrafoArray::buscaRadial(int de, int para){
         auto antecessor = new int[getTamanho()];
         auto naoVisitados = vector<int>(getTamanho());
 
+        int arr[getTamanho()];
+        for (int v = 0; v < getTamanho(); v++)
+            arr[v] = v;
+
+        int n = sizeof(arr) / sizeof(arr[0]);
+
+        naoVisitados = vector<int>(arr, arr + n);
+
         for (auto v = 0; v < getTamanho(); v++) {
             custo[v] = infinito;
             antecessor[v] = indefinido;
-            naoVisitados.insert(naoVisitados.begin()+v, v);
         }
         custo[de] = 0;
 
@@ -105,9 +119,10 @@ vector<int>* GrafoArray::buscaRadial(int de, int para){
         while (!naoVisitados.empty()) {
             int perto = maisPerto(custo, naoVisitados);
             auto indicePerto = 0;
-            for (auto v = 0; v < getTamanho(); v++) {
-                if(naoVisitados.at(v) == perto)
+            for (auto v = 0; v < naoVisitados.size(); v++) {
+                if(naoVisitados.at(v) == perto) {
                     indicePerto = v;
+                }
             }
             if (indicePerto == -1) break;
             naoVisitados.erase(naoVisitados.begin()+indicePerto);
@@ -118,14 +133,18 @@ vector<int>* GrafoArray::buscaRadial(int de, int para){
                     antecessor[vizinho] = perto;
                 }
             }
-
             //Achou?
             if (perto == para) {
-                return listarCaminho(antecessor, perto);
+                cout << "Achei" << "\n";
+                vector<int>* result = listarCaminho(antecessor, perto);
+                return result;
             }
         }
+        cout << "Nao achei" << "\n";
         return new vector<int>();
     }
+
+GrafoArray::~GrafoArray() = default;
 
 
 //um delete por linha e um geral
