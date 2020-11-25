@@ -1,29 +1,27 @@
-//
-// Created by paiva on 13/11/2020.
-//
+#include <map>
+#include <vector>
 
 #ifndef ESTRELA_VERTICE_H
 #define ESTRELA_VERTICE_H
 
-#include <map>
-#include "Aresta.h"
-#include <vector>
-
-
 class Vertice {
 private:
     int num;
-    std::map<int, Aresta*> arestas;
+    double x;
+    double y;
 
 public:
-    Vertice(int num);
-    void ligar(Vertice* vizinho, int custo);
-    void desligar(Vertice* vertice);
-    //std::vector<int> getVizinhos() const;
-    //std::vector<Aresta> getArestas() const;
-    int getCusto(int vizinho) const;
-    int getCusto(Vertice* vizinho) const;
+    explicit Vertice(int num,double x, double y);
+    //Desabilita a cópia: exclui o construtor de cópia e o operador de =
+    Vertice(const Vertice& other) = delete;
+    Vertice& operator = (const Vertice& other) = delete;
+
     int getNum() const;
+    int getX() const;
+    int getY() const;
+    void setNum(int num);
+    void setX(int x);
+    void setY(int y) ;
 };
 
 

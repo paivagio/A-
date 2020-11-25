@@ -6,6 +6,7 @@
 #define ESTRELA_GRAFO_H
 
 #include <vector>
+#include "Vertice.h"
 
 using namespace std;
 
@@ -15,7 +16,7 @@ public:
 
     virtual int getTamanho() = 0;
 
-    virtual void adicionarAresta(int v1, int v2, int custo) = 0;
+    virtual void adicionarAresta(Vertice *v1, Vertice *v2, int custo) = 0;
     virtual void removerAresta(int v1, int v2) = 0;
     virtual int getCusto(int v1, int v2) = 0;
     virtual std::vector<int> getVizinhos(int vertice) = 0;
