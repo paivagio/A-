@@ -4,26 +4,31 @@
 #include "Vertice.h"
 
 int main() {
-	
-	cout << "\nA* by Giovanni P. M. Paiva , Lucas F. A. de Oliveira, Sarah G. Rodrigues\n";
 
-    //Caso se deseje verificar o caminho realizado pelo método Dijkstra:
-    //  * Sete o terceiro parâmetro do construtor de GrafoArray para 1
-    //Para utilizar o método A*:
-    //  * Sete o terceiro parâmetro do construtor de GrafoArray para 0
+    int x;
+	cout << "\nA* by Giovanni P. M. Paiva , Lucas F. A. de Oliveira, Sarah G. Rodrigues" << "\n\n";
+    cout << "0 -  Sair" << "\n";
+    cout << "1 -  A*" << "\n";
+    cout << "2 -  Dijkstra" << "\n";
+    cout << "\nQual método deseja usar?";
+    cin >> x;
+    cout << "\n";
+
+    if(x == 0)
+        std::exit(0);
 
     static char nomes[] {'A', 'B', 'F', 'D', 'C', 'S','G','H'};
 
-    Vertice *A = new Vertice(0,10.8,10.8);
-    Vertice *B = new Vertice(1,15.6,10.8);
-    Vertice *F = new Vertice(2,18.8,11.5);
-    Vertice *D = new Vertice(3,13.9,7.7);
-    Vertice *C = new Vertice(4,18.3,9.1);
-    Vertice *S = new Vertice(5,17.2,6.4);
-    Vertice *G = new Vertice(6,8.1,17.0);
-    Vertice *H = new Vertice(7,22.0,20.0);
+    auto *A = new Vertice(0,10.8,10.8);
+    auto *B = new Vertice(1,15.6,10.8);
+    auto *F = new Vertice(2,18.8,11.5);
+    auto *D = new Vertice(3,13.9,7.7);
+    auto *C = new Vertice(4,18.3,9.1);
+    auto *S = new Vertice(5,17.2,6.4);
+    auto *G = new Vertice(6,8.1,17.0);
+    auto *H = new Vertice(7,22.0,20.0);
 
-    auto grafo = new GrafoArray(8, true,0);
+    auto grafo = new GrafoArray(8, true,x-1);
 
     //Devem ser inseridos em ordem numérica crescente!!! Levando em consideração o num do Vertice
     grafo->adicionarVertice(A);
@@ -64,7 +69,7 @@ int main() {
     vector<int>* result = grafo->buscaRadial(A->getNum(), S->getNum());
 
     for (auto& vertice : *result)
-    cout << nomes[vertice] << " ";
+        cout << nomes[vertice] << " ";
     cout << "\n";
 }
 

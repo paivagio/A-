@@ -2,25 +2,30 @@
 
 #include <iostream>
 #include <algorithm>
-#include "math.h"
+#include <cmath>
 #include "Vertice.h"
 
 using namespace std;
 
 GrafoArray::GrafoArray(int vertices,bool direcionado, int metodo) {
+    //Determina se o Grafo é direcionado ou não
     this->direcionado = direcionado;
+
+    //Instancia uma matriz vertices x vertices
     this->arestas = new int*[vertices];
 
     for(int i = 0; i < vertices; i ++) {
         this->arestas[i] = new int[vertices];
     }
 
+    //Popula a matriz com "indefinido"
     for(int i = 0; i < vertices; i++) {
         for(int j = 0; j < vertices; j++) {
             arestas[i][j] = this->indefinido;
         }
     }
     this->length = vertices;
+    //Escolhe o método de procura (Dijkstra ou A*)
     this->metodo = metodo;
 }
 
@@ -98,17 +103,18 @@ vector<int>* GrafoArray::listarCaminho(int* antecessor, int para) const {
 }
 
 int GrafoArray::distanciaEuclidiana(int de, int para) {
-    Vertice *v1 = vertices.at(de);
-    Vertice *v2 = vertices.at(para);
 
-    double X = pow(v2->getX() - v1->getX(),2);
-    double Y = pow(v2->getY() - v1->getY(),2);
+    Vertice *v1 = vertices.at(de); //vizinho
+    Vertice *v2 = vertices.at(para); //ponto final
 
-    double sum = X + Y;
-    double root = sqrt(sum);
-    int distance = round(root);
+    double X = pow(v2->getX() - v1->getX(),2); //(x1 - x0)^2
+    double Y = pow(v2->getY() - v1->getY(),2); //(y1 - y0)^2
 
-    return metodo == 0 ? distance : 0;
+    double sum = X + Y; //soma
+    double root = sqrt(sum); //tira a raiz
+    int distance = round(root); //arredonda
+
+    return metodo == 0 ? distance : 0; //Só retorna a distância se estive no método A*
 }
 
 vector<int>* GrafoArray::buscaRadial(int de, int para){
@@ -125,7 +131,6 @@ vector<int>* GrafoArray::buscaRadial(int de, int para){
         arr[v] = v;
 
     int n = sizeof(arr) / sizeof(arr[0]);
-
     naoVisitados = vector<int>(arr, arr + n);
 
     for (auto v = 0; v < getTamanho(); v++) {
@@ -138,8 +143,10 @@ vector<int>* GrafoArray::buscaRadial(int de, int para){
 
     cout << "\nMetodo " << (metodo == 0 ? "A*" : "Dijkstra") << "\n";
     while (!naoVisitados.empty()) {
+        //Pega o vizinho mais perto
         int perto = maisPerto(custo, naoVisitados);
         cout << "\nPassou pelo Vertice " << nomes[perto];
+        //Pega o indice do vizinho mais perto
         auto indicePerto = 0;
         for (auto v = 0; v < naoVisitados.size(); v++) {
             if(naoVisitados.at(v) == perto) {
@@ -147,8 +154,11 @@ vector<int>* GrafoArray::buscaRadial(int de, int para){
             }
         }
         if (indicePerto == -1) break;
+        //Apaga do naoVisitados
         naoVisitados.erase(naoVisitados.begin()+indicePerto);
+        //
         for (auto vizinho : getVizinhos(perto)) {
+            //Calcula o custo = custo ate ponto inicial + custo ate o ponto final
             auto custoTotal = custo[perto] + getCusto(perto, vizinho) + distanciaEuclidiana(vizinho,para);
             if (custoTotal < custo[vizinho]) {
                 custo[vizinho] = custoTotal;
@@ -168,11 +178,3 @@ vector<int>* GrafoArray::buscaRadial(int de, int para){
 }
 
 GrafoArray::~GrafoArray() = default;
-
-
-//um delete por linha e um geral
-
-//for (int i = 0; i < 15; i++) {
-//delete [] aresta[i];
-//}
-//delete [] aresta;
